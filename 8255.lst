@@ -1,0 +1,78 @@
+Microsoft (R) Macro Assembler Version 6.11		    05/25/16 13:20:09
+tempfile.asm						     Page 1 - 1
+
+
+				Assume cs:code
+ 0000				Code segment public
+				Org 100h
+ 0100				start:
+ 0100  BA 1023			      MOV DX,1023H   
+ 0103  B0 90			   	  MOV AL,90H
+ 0105  EE			   	  OUT DX,AL
+
+ 0106  B0 00				  MOV AL,00H
+ 0108  EE				  OUT DX,AL
+
+ 0109  BA 1021				  MOV DX,1021H
+ 010C  B0 80				  MOV AL,80H
+ 010E  EE				  OUT DX,AL
+					  
+					  
+ 010F  BA 1020			 A: MOV DX,1020H
+ 0112  EC			   	IN AL,DX
+ 0113  3C 00			   	CMP AL,0      
+ 0115  74 F8			   	JZ A
+					
+ 0117  B9 0003				MOV CX,3
+ 011A  BA 1022				MOV DX,1022H
+ 011D  B0 01			B: MOV AL,1
+ 011F  E8 000B			   CALL DELAY1S
+ 0122  EE			   OUT DX,AL
+ 0123  FE C0			   INC AL
+ 0125  E8 0005			   CALL DELAY1S
+ 0128  EE			   OUT DX,AL
+ 0129  E2 F2			   LOOP B
+ 012B  EB E2			   JMP A
+				   
+ 012D  9C			DELAY1S:Pushf
+ 012E  51				PUSH CX
+ 012F  BB 00E8			        mov bx,0e8h
+ 0132  B9 0118				Lp2:mov cx,118h
+ 0135  9C				Lp1:Pushf
+ 0136  9D				    Popf
+ 0137  E2 FC					LOOP Lp1
+ 0139  4B					Dec bx
+ 013A  75 F6					Jnz Lp2
+ 013C  59					POP CX
+ 013D  9D					Popf
+ 013E  C3					Ret
+ 013F  90					Nop
+ 0140				Code ends
+				end start
+
+Microsoft (R) Macro Assembler Version 6.11		    05/25/16 13:20:09
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+Code . . . . . . . . . . . . . .	16 Bit	 0140	  Para	  Public  
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+A  . . . . . . . . . . . . . . .	L Near	 010F	  Code	
+B  . . . . . . . . . . . . . . .	L Near	 011D	  Code	
+DELAY1S  . . . . . . . . . . . .	L Near	 012D	  Code	
+Lp1  . . . . . . . . . . . . . .	L Near	 0135	  Code	
+Lp2  . . . . . . . . . . . . . .	L Near	 0132	  Code	
+start  . . . . . . . . . . . . .	L Near	 0100	  Code	
+
+	   0 Warnings
+	   0 Errors
